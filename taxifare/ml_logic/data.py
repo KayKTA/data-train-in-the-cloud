@@ -86,9 +86,21 @@ def load_data_to_bq(
 
     # 🎯 HINT for "*** TypeError: expected bytes, int found":
     # After preprocessing the data, your original column names are gone (print it to check),
-    # so ensure that your column names are *strings* that start with either 
+    # so ensure that your column names are *strings* that start with either
     # a *letter* or an *underscore*, as BQ does not accept anything else
 
-    pass  # YOUR CODE HERE
+    table = f"{GCP_PROJECT}.{BQ_DATASET}.{table}"
+    client = bigquery.Client()
+    data.columns = [f"_{name}" for name in data.columns]
+    if truncate :
+        write_mode = "WRITE_TRUNCATE"
+    else:
+        write_mode = "WRITE_APPEND"
+
+    job_config = bigquery.LoadJobConfig(write_disposition=write_mode)
+
+    job = client.load_table_from_dataframe(data, table, job_config=job_config)
+    result = job.result()
+    print(f"result -> {result}")
 
     print(f"✅ Data saved to bigquery, with shape {data.shape}")
