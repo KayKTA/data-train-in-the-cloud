@@ -33,4 +33,4 @@ E         + MacBook-Pro-de-Kaniba.local
 tests/cloud_training/test_vm.py:9: AssertionError
 =========================== short test summary info ============================
 FAILED tests/cloud_training/test_vm.py::test_i_am_a_vm - AssertionError: You ...
-================== 1 failed, 8 passed, 118 warnings in 20.54s ==================
+================== 1 failed, 8 passed, 118 warnings in 19.06s ==================
